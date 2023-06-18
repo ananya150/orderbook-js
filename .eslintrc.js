@@ -1,16 +1,16 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
-  extends: ["plugin:@typescript-eslint/recommended", "prettier"],
+  parser: '@typescript-eslint/parser',
+  extends: ['plugin:@typescript-eslint/recommended', 'prettier'],
   parserOptions: {
-    sourceType: "module",
+    sourceType: 'module',
   },
   rules: {
-    "prettier/prettier": [
-      "error",
+    'prettier/prettier': [
+      'error',
       {
-        endOfLine: "auto",
+        endOfLine: 'auto',
       },
     ],
   },
-  plugins: ["@typescript-eslint", "prettier"],
-};
+  plugins: ['@typescript-eslint', 'prettier'],
+}
