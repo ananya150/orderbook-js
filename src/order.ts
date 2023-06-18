@@ -27,7 +27,6 @@ export class Order {
   private _price: number;
   private _time: number;
   private _isMaker: boolean;
-
   constructor(
     orderId: string,
     side: Side,
@@ -38,52 +37,42 @@ export class Order {
   ) {
     this._id = orderId;
     this._side = side;
-    this._size = size;
     this._price = price;
+    this._size = size;
     this._time = time || Date.now();
     this._isMaker = isMaker || false;
   }
 
-  // get id
+  // returns orderId of the order
   get id(): string {
     return this._id;
   }
-
-  // get side
+  // returns side of the order
   get side(): Side {
     return this._side;
   }
-
-  // get prixe
+  // returns price of the order
   get price(): number {
     return this._price;
   }
-
-  // get size
+  // returns size of the order
   get size(): number {
     return this._size;
   }
-  // update size
   set size(size: number) {
     this._size = size;
   }
-
-  // get time
+  // returns timestamp of the order
   get time(): number {
     return this._time;
   }
-
-  // update time
   set time(time: number) {
     this._time = time;
   }
-
-  // get type
   get isMaker(): boolean {
     return this._isMaker;
   }
-
-  // returns string representation of order
+  // returns string representation of the order
   toString = (): string => {
     return `${this._id}:
     side: ${this._side}
@@ -92,8 +81,7 @@ export class Order {
     time: ${this._time}
     isMaker: ${this.isMaker}`;
   };
-
-  // returns json string of the order
+  // returns JSON string of the order
   toJSON = (): string => {
     return JSON.stringify({
       id: this._id,
