@@ -1,4 +1,4 @@
-import { Order, OrderType, TimeInForce, Side } from "./order";
+import { Order, OrderType, OrderUpdate, TimeInForce, Side } from "./order";
 /**
  * This interface represents the result of a processed order or an error
  *
@@ -67,5 +67,45 @@ export declare class OrderBook {
     price: number,
     timeInForce?: TimeInForce
   ) => IProcessOrder;
+  /**
+   * Modify an existing order with given ID
+   *
+   * @param orderID - The ID of the order to be modified
+   * @param orderUpdate - An object with the modified size and/or price of an order. To be note that the `side` can't be modified. The shape of the object is `{side, size, price}`.
+   * @returns The modified order if exists or `undefined`
+   */
+  modify: (
+    orderID: string,
+    orderUpdate: OrderUpdate
+  ) => Order | undefined | void;
+  /**
+   * Remove an existing order with given ID from the order book
+   *
+   * @param orderID - The ID of the order to be removed
+   * @returns The removed order if exists or `undefined`
+   */
+  cancel: (orderID: string) => Order | undefined;
+  /**
+   * Get an existing order with the given ID
+   *
+   * @param orderID - The ID of the order to be returned
+   * @returns The order if exists or `undefined`
+   */
+  order: (orderID: string) => Order | undefined;
+  depth: () => [[number, number][], [number, number][]];
+  toString: () => string;
+  calculateMarketPrice: (
+    side: Side,
+    size: number
+  ) => {
+    price: number;
+    err: null | Error;
+  };
+  private greaterThanOrEqual;
+  private lowerThanOrEqual;
+  private processQueue;
+  private canFillOrder;
+  private buyOrderCanBeFilled;
+  private sellOrderCanBeFilled;
 }
 export {};
