@@ -48,10 +48,10 @@ var OrderSide = /** @class */ (function () {
             }
             _this._numOrders += 1;
             _this._volume += order.size;
-            _this._total += order.size + order.price;
+            _this._total += order.size * order.price;
             return _this._prices[strPrice].append(order);
         };
-        // remove order from definate pricc pool
+        // removes order from definite price level
         this.remove = function (order) {
             var price = order.price;
             var strPrice = price.toString();
@@ -71,7 +71,7 @@ var OrderSide = /** @class */ (function () {
         this.update = function (oldOrder, orderUpdate) {
             if (orderUpdate.price !== undefined &&
                 orderUpdate.price !== oldOrder.price) {
-                // price changed. Remove order and update tree
+                // Price changed. Remove order and update tree.
                 _this.remove(oldOrder);
                 var newOrder = new order_1.Order(oldOrder.id, oldOrder.side, orderUpdate.size || oldOrder.size, orderUpdate.price, Date.now(), oldOrder.isMaker);
                 _this.append(newOrder);
@@ -79,7 +79,7 @@ var OrderSide = /** @class */ (function () {
             }
             else if (orderUpdate.size !== undefined &&
                 orderUpdate.size !== oldOrder.size) {
-                // Quantity changed. Price remains same
+                // Quantity changed. Price is the same.
                 var strPrice = oldOrder.price.toString();
                 _this._volume += orderUpdate.size - oldOrder.size;
                 _this._total +=
@@ -88,7 +88,7 @@ var OrderSide = /** @class */ (function () {
                 return oldOrder;
             }
         };
-        // returns max levels of price
+        // returns max level of price
         this.maxPriceQueue = function () {
             if (_this._depthSide > 0) {
                 var max = _this._side === order_1.Side.SELL ? _this._priceTree.end : _this._priceTree.begin;
@@ -102,21 +102,21 @@ var OrderSide = /** @class */ (function () {
                 return min.value;
             }
         };
-        // returns nearest OrderQueue with price less than given
+        // returns nearest Queue with price less than given
         this.lowerThan = function (price) {
             var node = _this._side === order_1.Side.SELL
                 ? _this._priceTree.lt(price)
                 : _this._priceTree.gt(price);
             return node.value;
         };
-        // returns nearest OrderQueue with price greater than given
+        // returns nearest Queue with price greater than given
         this.greaterThan = function (price) {
             var node = _this._side === order_1.Side.SELL
                 ? _this._priceTree.gt(price)
                 : _this._priceTree.lt(price);
             return node.value;
         };
-        // return all orders
+        // returns all orders
         this.orders = function () {
             var orders = [];
             for (var price in _this._prices) {

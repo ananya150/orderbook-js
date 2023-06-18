@@ -17,11 +17,11 @@ export var TimeInForce;
 var Order = /** @class */ (function () {
     function Order(orderId, side, size, price, time, isMaker) {
         var _this = this;
-        // returns string representation of order
+        // returns string representation of the order
         this.toString = function () {
             return "".concat(_this._id, ":\n    side: ").concat(_this._side, "\n    size: ").concat(_this._side, "\n    price: ").concat(_this._price, "\n    time: ").concat(_this._time, "\n    isMaker: ").concat(_this.isMaker);
         };
-        // returns json string of the order
+        // returns JSON string of the order
         this.toJSON = function () {
             return JSON.stringify({
                 id: _this._id,
@@ -45,13 +45,13 @@ var Order = /** @class */ (function () {
         };
         this._id = orderId;
         this._side = side;
-        this._size = size;
         this._price = price;
+        this._size = size;
         this._time = time || Date.now();
         this._isMaker = isMaker || false;
     }
     Object.defineProperty(Order.prototype, "id", {
-        // get id
+        // returns orderId of the order
         get: function () {
             return this._id;
         },
@@ -59,7 +59,7 @@ var Order = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Order.prototype, "side", {
-        // get side
+        // returns side of the order
         get: function () {
             return this._side;
         },
@@ -67,7 +67,7 @@ var Order = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Order.prototype, "price", {
-        // get prixe
+        // returns price of the order
         get: function () {
             return this._price;
         },
@@ -75,11 +75,10 @@ var Order = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Order.prototype, "size", {
-        // get size
+        // returns size of the order
         get: function () {
             return this._size;
         },
-        // update size
         set: function (size) {
             this._size = size;
         },
@@ -87,11 +86,10 @@ var Order = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Order.prototype, "time", {
-        // get time
+        // returns timestamp of the order
         get: function () {
             return this._time;
         },
-        // update time
         set: function (time) {
             this._time = time;
         },
@@ -99,7 +97,6 @@ var Order = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(Order.prototype, "isMaker", {
-        // get type
         get: function () {
             return this._isMaker;
         },

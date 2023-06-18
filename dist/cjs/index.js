@@ -1,8 +1,5 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Sum = void 0;
-var example_1 = __importDefault(require("./example"));
-exports.Sum = example_1.default;
+exports.OrderBook = void 0;
+var book_1 = require("./book");
+Object.defineProperty(exports, "OrderBook", { enumerable: true, get: function () { return book_1.OrderBook; } });

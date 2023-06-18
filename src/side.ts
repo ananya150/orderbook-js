@@ -57,11 +57,11 @@ export class OrderSide {
     }
     this._numOrders += 1;
     this._volume += order.size;
-    this._total += order.size + order.price;
+    this._total += order.size * order.price;
     return this._prices[strPrice].append(order);
   };
 
-  // remove order from definate pricc pool
+  // removes order from definite price level
   remove = (order: Order): Order => {
     const price = order.price;
     const strPrice = price.toString();
@@ -73,6 +73,7 @@ export class OrderSide {
       this._priceTree = this._priceTree.remove(price);
       this._depthSide -= 1;
     }
+
     this._numOrders -= 1;
     this._volume -= order.size;
     this._total -= order.size * order.price;
@@ -84,7 +85,7 @@ export class OrderSide {
       orderUpdate.price !== undefined &&
       orderUpdate.price !== oldOrder.price
     ) {
-      // price changed. Remove order and update tree
+      // Price changed. Remove order and update tree.
       this.remove(oldOrder);
       const newOrder = new Order(
         oldOrder.id,
@@ -100,7 +101,7 @@ export class OrderSide {
       orderUpdate.size !== undefined &&
       orderUpdate.size !== oldOrder.size
     ) {
-      // Quantity changed. Price remains same
+      // Quantity changed. Price is the same.
       const strPrice = oldOrder.price.toString();
       this._volume += orderUpdate.size - oldOrder.size;
       this._total +=
@@ -110,7 +111,7 @@ export class OrderSide {
     }
   };
 
-  // returns max levels of price
+  // returns max level of price
   maxPriceQueue = (): Queue | undefined => {
     if (this._depthSide > 0) {
       const max =
@@ -128,7 +129,7 @@ export class OrderSide {
     }
   };
 
-  // returns nearest OrderQueue with price less than given
+  // returns nearest Queue with price less than given
   lowerThan = (price: number): Queue | undefined => {
     const node =
       this._side === Side.SELL
@@ -137,7 +138,7 @@ export class OrderSide {
     return node.value;
   };
 
-  // returns nearest OrderQueue with price greater than given
+  // returns nearest Queue with price greater than given
   greaterThan = (price: number): Queue | undefined => {
     const node =
       this._side === Side.SELL
@@ -146,7 +147,7 @@ export class OrderSide {
     return node.value;
   };
 
-  // return all orders
+  // returns all orders
   orders = (): Order[] => {
     let orders: Order[] = [];
     for (const price in this._prices) {
